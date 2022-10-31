@@ -7,7 +7,7 @@ export default () => {
     // run once, when this component is displayed
     useEffect(() => {
         mount(ref.current);
-    }); // TODO: should we send [] as 2nd parameter?
+    }, []);
 
     return <div ref={ref} />
 }
