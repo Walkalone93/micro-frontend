@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function Pricing() {
   return (
-    <div>
+    <h2>
       Pricing page
-    </div>
+    </h2>
   );
 }

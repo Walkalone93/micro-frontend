@@ -13,6 +13,7 @@ const generateClassName = createGenerateClassName({
 
 export default () => (
     <StylesProvider generateClassName={generateClassName}>
+        {/* Browser History, changes URL */}
         <BrowserRouter>
             <Header />
             <MarketingApp />
