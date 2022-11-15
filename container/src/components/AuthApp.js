@@ -8,7 +8,7 @@ export default () => {
 
     // Run once, when this component is displayed
     useEffect(() => {
-        const { onParentNavigation } = mount(ref.current, {
+        const { onParentNavigate } = mount(ref.current, {
             // Is called when navigation happens in the Auth app
             onNavigate: ({ pathname: nextPathname }) => {
                 const { pathname } = history.location;
@@ -19,7 +19,7 @@ export default () => {
             initialPath: history.location.pathname
         });
 
-        history.listen(onParentNavigation);
+        history.listen(onParentNavigate);
     }, []);
 
     return <div ref={ref} />
