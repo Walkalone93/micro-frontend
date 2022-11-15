@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { mount } from 'marketing/MarketingApp';
+import { mount } from 'auth/AuthApp';
 
 export default () => {
     const ref = useRef(null);
@@ -8,18 +8,19 @@ export default () => {
 
     // Run once, when this component is displayed
     useEffect(() => {
-        const { onParentNavigate } = mount(ref.current, {
-            // Is called when navigation happens in the Marketing app
+        const { onParentNavigation } = mount(ref.current, {
+            // Is called when navigation happens in the Auth app
             onNavigate: ({ pathname: nextPathname }) => {
                 const { pathname } = history.location;
                 if (pathname !== nextPathname) {
                     history.push(nextPathname);
                 }
-            }
+            },
+            initialPath: history.location.pathname
         });
 
-        history.listen(onParentNavigate);
+        history.listen(onParentNavigation);
     }, []);
 
     return <div ref={ref} />
-}
+};
