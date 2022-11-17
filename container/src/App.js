@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import { createGenerateClassName } from '@material-ui/core/styles';
 
 import MarketingApp from './components/MarketingApp';
 import AuthApp from './components/AuthApp';
@@ -13,26 +13,29 @@ const generateClassName = createGenerateClassName({
 });
 
 export default () => {
+    const history = useHistory();
     const [ user, setUser ] = useState();
 
     function onSignOut() {
         setUser(null);
     }
 
+    function onAuthenticate(user) {
+        setUser(user);
+        history.push('/');
+    }
+
     return (
-        <StylesProvider generateClassName={generateClassName}>
-            {/* Browser History, changes URL */}
-            <BrowserRouter>
-                <Header user={user} onSignOut={onSignOut} />
-                <Switch>
-                    <Route path="/auth">
-                        <AuthApp onSignIn={setUser} />
-                    </Route>
-                    <Route path="/">
-                        <MarketingApp />
-                    </Route>
-                </Switch>
-            </BrowserRouter>
-        </StylesProvider>
+        <React.Fragment>
+            <Header user={user} onSignOut={onSignOut} />
+            <Switch>
+                <Route path="/auth">
+                    <AuthApp onAuthenticate={onAuthenticate} />
+                </Route>
+                <Route path="/">
+                    <MarketingApp />
+                </Route>
+            </Switch>            
+        </React.Fragment>
     )
 };

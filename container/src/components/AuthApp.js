@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { mount } from 'auth/AuthApp';
 
-export default ({ onSignIn }) => {
+export default ({ onAuthenticate }) => {
     const ref = useRef(null);
     const history = useHistory();
 
@@ -16,7 +16,8 @@ export default ({ onSignIn }) => {
                     history.push(nextPathname);
                 }
             },
-            onSignIn,
+            // Is called when user is successfully authenticated
+            onAuthenticate,
             initialPath: history.location.pathname
         });
 

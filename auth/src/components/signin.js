@@ -45,7 +45,7 @@ export default ({ onSignIn }) => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        onSignIn?.(form);
+        onSignIn?.({ email: form.email });
     }
 
     return (
