@@ -1,34 +1,44 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
-const useStyles = makeStyles({
-    title: {
-        color: 'grey',
-        display: 'flex',
-        justifyContent: 'space-between'
-    },
-    homeButton: {
-        cursor: 'pointer'
-    }
-});
-
-export default () => {
-    const classes = useStyles();
+export default ({ user, onSignOut }) => {
     const history = useHistory();
 
-    function goToHome() {
+    function goToHome(event) {
+        event.preventDefault();
         history.push('/');
     }
 
-    function goToLogin() {
+    function signIn() {
         history.push('/auth/signin');
     }
 
+    function signOut() {
+        history.push('/');
+        onSignOut();
+    }
+
     return (
-        <h1 className={classes.title}>
-            <a className={classes.homeButton} type="button" onClick={goToHome}>Home</a>
-            <button onClick={goToLogin}>Login</button>
-        </h1>
+        <Grid container justifyContent="space-between">
+            <Grid item>
+                <Typography variant="h5" onClick={goToHome}>
+                    <Link href="#" underline="none" onClick={event => goToHome(event)}>
+                        Micro-frontend app
+                    </Link>
+                </Typography>
+            </Grid>
+
+            <Grid item>
+                {
+                    user
+                        ? <Button color="primary" variant="outlined" onClick={signOut}>Logout</Button>
+                        : <Button color="primary" variant="outlined" onClick={signIn}>Login</Button>
+                }
+            </Grid>
+        </Grid>
     );
 }

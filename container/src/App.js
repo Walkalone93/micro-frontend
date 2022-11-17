@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 
@@ -12,15 +12,27 @@ const generateClassName = createGenerateClassName({
     productionPrefix: 'container'
 });
 
-export default () => (
-    <StylesProvider generateClassName={generateClassName}>
-        {/* Browser History, changes URL */}
-        <BrowserRouter>
-            <Header />
-            <Switch>
-                <Route path="/auth" component={AuthApp} />
-                <Route path="/" component={MarketingApp} />
-            </Switch>
-        </BrowserRouter>
-    </StylesProvider>
-);
+export default () => {
+    const [ user, setUser ] = useState();
+
+    function onSignOut() {
+        setUser(null);
+    }
+
+    return (
+        <StylesProvider generateClassName={generateClassName}>
+            {/* Browser History, changes URL */}
+            <BrowserRouter>
+                <Header user={user} onSignOut={onSignOut} />
+                <Switch>
+                    <Route path="/auth">
+                        <AuthApp onSignIn={setUser} />
+                    </Route>
+                    <Route path="/">
+                        <MarketingApp />
+                    </Route>
+                </Switch>
+            </BrowserRouter>
+        </StylesProvider>
+    )
+};
