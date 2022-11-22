@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { mount } from 'marketing/MarketingApp';
+import { mount } from 'home/HomeApp';
 
 export default () => {
     const ref = useRef(null);
@@ -9,7 +9,7 @@ export default () => {
     // Run once, when this component is displayed
     useEffect(() => {
         const { onParentNavigate } = mount(ref.current, {
-            // Is called when navigation happens in the Marketing app
+            // Is called when navigation happens in the Home app
             onNavigate: ({ pathname: nextPathname }) => {
                 const { pathname } = history.location;
                 if (pathname !== nextPathname) {
