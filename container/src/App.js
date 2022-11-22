@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-
-import HomeApp from './components/HomeApp';
-import AuthApp from './components/AuthApp';
 import Header from './components/Header';
+import Progress from './components/Progress';
+
+const HomeAppLazy = lazy(() => import('./components/HomeApp'));
+const AuthAppLazy = lazy(() => import('./components/AuthApp'));
 
 export default () => {
     const history = useHistory();
@@ -31,14 +32,16 @@ export default () => {
             </Grid>
 
             <Grid item xs={12}>
-                <Switch>
-                    <Route path="/auth">
-                        <AuthApp onAuthenticate={onAuthenticate} />
-                    </Route>
-                    <Route path="/">
-                        <HomeApp />
-                    </Route>
-                </Switch>   
+                <Suspense fallback={<Progress />}>
+                    <Switch>
+                        <Route path="/auth">
+                            <AuthAppLazy onAuthenticate={onAuthenticate} />
+                        </Route>
+                        <Route path="/">
+                            <HomeAppLazy />
+                        </Route>
+                    </Switch>                    
+                </Suspense>
             </Grid>         
         </Grid>
     )
