@@ -1,6 +1,6 @@
 # Micro frontend
 The main purpose of this project is to demonstrate how to divide a monolithic app into multiple sub-apps.<br>
-It's a demo project, that demonstrates the main concept, not a production ready solution from the product standpoint.
+It's a demo project, that demonstrates the main concept, not a production ready solution from the product point of view.
 
 ## Getting started
 
