@@ -10,8 +10,6 @@ export default () => {
     }, []);
 
     return (
-        <div>
-            <app-root></app-root>
-        </div>
+        <app-root></app-root>
     )
 }

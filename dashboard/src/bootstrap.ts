@@ -14,7 +14,11 @@ const mount = () => {
     .catch(err => console.error(err));
 }
 
-// TODO: call this function only if Dashboard app is bootstrapped as a separate project
-// mount();
+if (!environment.production) {
+    const root = document.getElementById('dashboard-dev-root');
+    if (root) {
+        mount();
+    }
+}
 
 export { mount };
