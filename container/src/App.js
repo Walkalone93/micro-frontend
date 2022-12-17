@@ -7,6 +7,7 @@ import Progress from './components/Progress';
 
 const HomeAppLazy = lazy(() => import('./components/HomeApp'));
 const AuthAppLazy = lazy(() => import('./components/AuthApp'));
+const DashboardAppLazy = lazy(() => import('./components/DashboardApp'));
 
 export default () => {
     const history = useHistory();
@@ -36,6 +37,9 @@ export default () => {
                     <Switch>
                         <Route path="/auth">
                             <AuthAppLazy onAuthenticate={onAuthenticate} />
+                        </Route>
+                        <Route path="/dashboard">
+                            <DashboardAppLazy />
                         </Route>
                         <Route path="/">
                             <HomeAppLazy />
